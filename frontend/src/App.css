@@ -1,4 +1,239 @@
-/* VSCode Clone Styles */
+/* Live Development System Styles */
+.fullscreen-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #1a1a1a;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+}
+
+.live-dev-header {
+  background: #2d2d2d;
+  padding: 10px 20px;
+  border-bottom: 1px solid #444;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.close-live-dev {
+  background: #007acc;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+
+.close-live-dev:hover {
+  background: #005a9e;
+}
+
+.live-development-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* WebSocket Connection Status */
+.connection-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.connection-status.connected {
+  background: rgba(0, 255, 0, 0.1);
+  color: #00ff00;
+}
+
+.connection-status.disconnected {
+  background: rgba(255, 0, 0, 0.1);
+  color: #ff0000;
+}
+
+.connection-status.error {
+  background: rgba(255, 165, 0, 0.1);
+  color: #ffa500;
+}
+
+/* Project Cards */
+.project-card {
+  background: #2d2d2d;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 12px;
+  border: 1px solid #444;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.project-card:hover {
+  background: #3a3a3a;
+  border-color: #007acc;
+}
+
+.project-card.active {
+  background: #007acc;
+  border-color: #007acc;
+}
+
+.project-progress {
+  width: 100%;
+  height: 6px;
+  background: #444;
+  border-radius: 3px;
+  overflow: hidden;
+  margin: 8px 0;
+}
+
+.project-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #007acc, #00a8ff);
+  transition: width 0.3s ease;
+}
+
+/* Live Events */
+.live-events {
+  background: #1a1a1a;
+  border-radius: 4px;
+  padding: 12px;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  overflow-y: auto;
+  max-height: 300px;
+}
+
+.live-event {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+  padding: 2px 0;
+}
+
+.live-event.error {
+  color: #ff6b6b;
+}
+
+.live-event.success {
+  color: #51cf66;
+}
+
+.live-event.info {
+  color: #74c0fc;
+}
+
+.live-event.warning {
+  color: #ffd43b;
+}
+
+/* Project Status Badges */
+.status-badge {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.status-badge.initializing {
+  background: rgba(255, 212, 59, 0.2);
+  color: #ffd43b;
+}
+
+.status-badge.building {
+  background: rgba(116, 192, 252, 0.2);
+  color: #74c0fc;
+}
+
+.status-badge.completed {
+  background: rgba(81, 207, 102, 0.2);
+  color: #51cf66;
+}
+
+.status-badge.error {
+  background: rgba(255, 107, 107, 0.2);
+  color: #ff6b6b;
+}
+
+/* Scrollbars */
+.live-development-container ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.live-development-container ::-webkit-scrollbar-track {
+  background: #2d2d2d;
+  border-radius: 4px;
+}
+
+.live-development-container ::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 4px;
+}
+
+.live-development-container ::-webkit-scrollbar-thumb:hover {
+  background: #666;
+}
+
+/* Animations */
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.loading-pulse {
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.slide-in {
+  animation: slideIn 0.3s ease-out;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .live-development-container {
+    flex-direction: column;
+  }
+  
+  .live-dev-header {
+    padding: 8px 16px;
+  }
+  
+  .close-live-dev {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
 * {
   margin: 0;
   padding: 0;
