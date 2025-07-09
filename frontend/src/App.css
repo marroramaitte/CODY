@@ -187,7 +187,7 @@
   background: #666;
 }
 
-/* Animations */
+/* Ultra-Fast Animations */
 @keyframes pulse {
   0% {
     opacity: 1;
@@ -201,7 +201,7 @@
 }
 
 .loading-pulse {
-  animation: pulse 1.5s infinite;
+  animation: pulse 0.5s infinite;
 }
 
 @keyframes slideIn {
@@ -216,7 +216,198 @@
 }
 
 .slide-in {
-  animation: slideIn 0.3s ease-out;
+  animation: slideIn 0.1s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes slideInFromRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-in {
+  animation: slideInFromRight 0.15s ease-out;
+}
+
+/* Spinning Wheel Animation */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 3s linear infinite;
+}
+
+/* Progress Wheel Glow Effect */
+@keyframes glow {
+  0% {
+    filter: drop-shadow(0 0 5px #007acc);
+  }
+  50% {
+    filter: drop-shadow(0 0 20px #007acc);
+  }
+  100% {
+    filter: drop-shadow(0 0 5px #007acc);
+  }
+}
+
+.progress-glow {
+  animation: glow 2s ease-in-out infinite;
+}
+
+/* Ultra-Fast Success Animation */
+@keyframes bounceIn {
+  0% {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-bounce-in {
+  animation: bounceIn 0.3s ease-out;
+}
+
+/* Matrix-like Code Effect */
+@keyframes matrix {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+.matrix-effect {
+  animation: matrix 2s linear infinite;
+}
+
+/* Ultra-Fast Circular Progress */
+.circular-progress {
+  transition: stroke-dashoffset 0.2s ease-out;
+}
+
+/* Particle Animation */
+@keyframes particle {
+  0% {
+    transform: scale(0) rotate(0deg);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1) rotate(180deg);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(0) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.animate-particle {
+  animation: particle 1s ease-out;
+}
+
+/* Neon Glow Text */
+@keyframes neon {
+  0%, 100% {
+    text-shadow: 0 0 5px #00ff88, 0 0 10px #00ff88, 0 0 15px #00ff88;
+  }
+  50% {
+    text-shadow: 0 0 10px #00ff88, 0 0 20px #00ff88, 0 0 30px #00ff88;
+  }
+}
+
+.neon-text {
+  animation: neon 1s ease-in-out infinite;
+}
+
+/* Fast Shake Animation for Errors */
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+}
+
+.animate-shake {
+  animation: shake 0.2s ease-in-out;
+}
+
+/* Ultra-Fast Loading Bars */
+@keyframes loadingBar {
+  0% {
+    width: 0%;
+  }
+  50% {
+    width: 100%;
+  }
+  100% {
+    width: 0%;
+  }
+}
+
+.loading-bar {
+  animation: loadingBar 0.8s ease-in-out infinite;
 }
 
 /* Responsive Design */
@@ -232,6 +423,11 @@
   .close-live-dev {
     padding: 6px 12px;
     font-size: 12px;
+  }
+  
+  .circular-progress {
+    width: 80px !important;
+    height: 80px !important;
   }
 }
 * {
