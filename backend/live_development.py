@@ -251,60 +251,126 @@ class ProjectSimulator:
         self.manager = manager
         
     async def simulate_react_app_creation(self, project_id: str):
-        """Simular creación de una app React"""
+        """Simular creación de una app React con velocidad ultra-rápida"""
         steps = [
-            ("Creando estructura de carpetas...", 10),
-            ("Generando package.json...", 20),
-            ("Creando componentes base...", 40),
-            ("Configurando estilos...", 60),
-            ("Implementando lógica...", 80),
-            ("Finalizando configuración...", 100)
+            ("🚀 Inicializando proyecto...", 5),
+            ("📁 Creando estructura de carpetas...", 15),
+            ("📦 Generando package.json...", 25),
+            ("⚛️ Creando componentes React...", 35),
+            ("🎨 Configurando estilos y CSS...", 45),
+            ("🔧 Configurando herramientas de build...", 55),
+            ("📱 Creando componentes responsivos...", 65),
+            ("🌐 Configurando rutas y navegación...", 75),
+            ("⚡ Optimizando rendimiento...", 85),
+            ("✅ Finalizando configuración...", 95),
+            ("🎉 Proyecto completado!", 100)
         ]
         
         for step, progress in steps:
             await self.manager.update_project_progress(project_id, progress, step)
             await self.manager.add_project_log(project_id, step)
             
-            # Simular tiempo de procesamiento
-            await asyncio.sleep(2)
+            # Velocidad ultra-rápida: 200ms por paso
+            await asyncio.sleep(0.2)
             
-            # Simular creación de archivos
-            if progress == 20:
+            # Simular creación de archivos en diferentes etapas
+            if progress == 15:
+                await self.create_folder_structure(project_id)
+            elif progress == 25:
                 await self.create_package_json(project_id)
-            elif progress == 40:
+            elif progress == 35:
                 await self.create_react_components(project_id)
-            elif progress == 60:
+            elif progress == 45:
                 await self.create_styles(project_id)
+            elif progress == 55:
+                await self.create_build_config(project_id)
+            elif progress == 65:
+                await self.create_responsive_components(project_id)
+            elif progress == 75:
+                await self.create_routing(project_id)
+            elif progress == 85:
+                await self.optimize_performance(project_id)
                 
         await self.manager.complete_project(project_id)
         
+    async def create_folder_structure(self, project_id: str):
+        """Crear estructura de carpetas"""
+        folders = ["src/", "src/components/", "src/pages/", "src/utils/", "public/", "src/assets/"]
+        for folder in folders:
+            await self.manager.add_project_log(project_id, f"📁 Creando carpeta: {folder}")
+            await asyncio.sleep(0.05)
+            
     async def create_package_json(self, project_id: str):
-        """Crear package.json simulado"""
+        """Crear package.json ultra-rápido"""
         content = {
             "name": "live-dev-project",
             "version": "1.0.0",
             "dependencies": {
                 "react": "^18.2.0",
-                "react-dom": "^18.2.0"
+                "react-dom": "^18.2.0",
+                "react-router-dom": "^6.8.0",
+                "axios": "^1.3.0"
             }
         }
         
         await self.manager.add_project_log(project_id, "📦 Creando package.json")
-        # Simular creación de archivo
-        await asyncio.sleep(0.5)
+        await asyncio.sleep(0.1)
         
     async def create_react_components(self, project_id: str):
-        """Crear componentes React simulados"""
-        components = ["App.js", "Header.js", "Footer.js", "MainContent.js"]
+        """Crear componentes React ultra-rápido"""
+        components = [
+            "App.jsx", "Header.jsx", "Footer.jsx", "Sidebar.jsx", 
+            "MainContent.jsx", "Button.jsx", "Modal.jsx", "Card.jsx"
+        ]
         
         for component in components:
-            await self.manager.add_project_log(project_id, f"⚛️ Creando componente {component}")
-            await asyncio.sleep(0.8)
+            await self.manager.add_project_log(project_id, f"⚛️ Creando componente: {component}")
+            await asyncio.sleep(0.05)
             
     async def create_styles(self, project_id: str):
-        """Crear estilos simulados"""
-        styles = ["App.css", "index.css", "components.css"]
+        """Crear estilos ultra-rápido"""
+        styles = [
+            "App.css", "index.css", "components.css", "responsive.css", 
+            "animations.css", "variables.css"
+        ]
         
         for style in styles:
-            await self.manager.add_project_log(project_id, f"🎨 Creando estilo {style}")
-            await asyncio.sleep(0.5)
+            await self.manager.add_project_log(project_id, f"🎨 Creando estilo: {style}")
+            await asyncio.sleep(0.05)
+            
+    async def create_build_config(self, project_id: str):
+        """Crear configuración de build"""
+        configs = ["webpack.config.js", "babel.config.js", ".env", "tsconfig.json"]
+        
+        for config in configs:
+            await self.manager.add_project_log(project_id, f"🔧 Configurando: {config}")
+            await asyncio.sleep(0.05)
+            
+    async def create_responsive_components(self, project_id: str):
+        """Crear componentes responsivos"""
+        responsive_components = [
+            "MobileNav.jsx", "TabletLayout.jsx", "DesktopHeader.jsx", "ResponsiveGrid.jsx"
+        ]
+        
+        for component in responsive_components:
+            await self.manager.add_project_log(project_id, f"📱 Creando componente responsivo: {component}")
+            await asyncio.sleep(0.05)
+            
+    async def create_routing(self, project_id: str):
+        """Crear sistema de rutas"""
+        routes = ["Router.jsx", "routes/index.js", "pages/Home.jsx", "pages/About.jsx"]
+        
+        for route in routes:
+            await self.manager.add_project_log(project_id, f"🌐 Configurando ruta: {route}")
+            await asyncio.sleep(0.05)
+            
+    async def optimize_performance(self, project_id: str):
+        """Optimizar rendimiento"""
+        optimizations = [
+            "Lazy loading components", "Code splitting", "Bundle optimization", 
+            "Cache configuration", "Performance monitoring"
+        ]
+        
+        for optimization in optimizations:
+            await self.manager.add_project_log(project_id, f"⚡ Optimizando: {optimization}")
+            await asyncio.sleep(0.05)
