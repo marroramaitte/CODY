@@ -11,6 +11,7 @@ import {
   ErrorPanel,
   AICodeGenerator
 } from './components';
+import LiveDevelopmentSystem from './LiveDevelopment';
 
 function App() {
   const [activeView, setActiveView] = useState('explorer');
@@ -22,6 +23,7 @@ function App() {
   const [codeCompletionVisible, setCodeCompletionVisible] = useState(false);
   const [errorPanelVisible, setErrorPanelVisible] = useState(false);
   const [aiGeneratorVisible, setAiGeneratorVisible] = useState(false);
+  const [liveDevelopmentVisible, setLiveDevelopmentVisible] = useState(false);
   const [sidebarWidth, setSidebarWidth] = useState(300);
   const [terminalHeight, setTerminalHeight] = useState(200);
   const [currentCode, setCurrentCode] = useState('');
@@ -149,12 +151,35 @@ function App() {
       e.preventDefault();
       setTerminalVisible(!terminalVisible);
     }
+
+    // Toggle Live Development
+    if (e.ctrlKey && e.shiftKey && e.key === 'L') {
+      e.preventDefault();
+      setLiveDevelopmentVisible(!liveDevelopmentVisible);
+    }
   };
 
   useEffect(() => {
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [terminalVisible]);
+  }, [terminalVisible, liveDevelopmentVisible]);
+
+  // Si está visible el sistema de desarrollo en vivo, mostrarlo en pantalla completa
+  if (liveDevelopmentVisible) {
+    return (
+      <div className="fullscreen-overlay">
+        <div className="live-dev-header">
+          <button 
+            onClick={() => setLiveDevelopmentVisible(false)}
+            className="close-live-dev"
+          >
+            ← Volver al VSCode
+          </button>
+        </div>
+        <LiveDevelopmentSystem />
+      </div>
+    );
+  }
 
   return (
     <div className="vscode-container" onKeyDown={handleKeyDown}>
@@ -164,6 +189,7 @@ function App() {
           onViewChange={setActiveView}
           onChatToggle={() => setChatBotVisible(!chatBotVisible)}
           onAIGeneratorToggle={() => setAiGeneratorVisible(!aiGeneratorVisible)}
+          onLiveDevelopmentToggle={() => setLiveDevelopmentVisible(!liveDevelopmentVisible)}
         />
         
         <SideBar 
