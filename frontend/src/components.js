@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 
 // Activity Bar Component
-export const ActivityBar = ({ activeView, onViewChange, onChatToggle, onAIGeneratorToggle }) => {
+export const ActivityBar = ({ activeView, onViewChange, onChatToggle, onAIGeneratorToggle, onLiveDevelopmentToggle }) => {
   const activities = [
     { id: 'explorer', icon: '📁', title: 'Explorer' },
     { id: 'search', icon: '🔍', title: 'Search' },
@@ -9,7 +9,8 @@ export const ActivityBar = ({ activeView, onViewChange, onChatToggle, onAIGenera
     { id: 'debug', icon: '🐛', title: 'Debug' },
     { id: 'extensions', icon: '📦', title: 'Extensions' },
     { id: 'ai-chat', icon: '🤖', title: 'AI Chat' },
-    { id: 'ai-generator', icon: '✨', title: 'AI Code Generator' }
+    { id: 'ai-generator', icon: '✨', title: 'AI Code Generator' },
+    { id: 'live-development', icon: '🚀', title: 'Live Development' }
   ];
 
   return (
@@ -24,6 +25,8 @@ export const ActivityBar = ({ activeView, onViewChange, onChatToggle, onAIGenera
                 onChatToggle();
               } else if (activity.id === 'ai-generator') {
                 onAIGeneratorToggle();
+              } else if (activity.id === 'live-development') {
+                onLiveDevelopmentToggle();
               } else {
                 onViewChange(activity.id);
               }
