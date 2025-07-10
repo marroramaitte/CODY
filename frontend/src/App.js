@@ -269,6 +269,12 @@ function App() {
           onCodeGenerated={(code) => updateFileContent(activeTab, code)}
         />
       )}
+
+      {pricingVisible && (
+        <PricingPanel 
+          onClose={() => setPricingVisible(false)}
+        />
+      )}
     </div>
   );
 }
