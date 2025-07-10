@@ -1,0 +1,150 @@
+{
+  "timestamp": "2025-07-10T05:41:34.176139",
+  "success": true,
+  "results": [
+    {
+      "test": "API Health Check",
+      "success": true,
+      "details": "Status: 200, Message: Live Development System Ultra-Fast Ready! \u26a1",
+      "timestamp": "2025-07-10T05:40:46.776594"
+    },
+    {
+      "test": "GET /api/agents",
+      "success": true,
+      "details": "Found 5 agents with correct structure",
+      "timestamp": "2025-07-10T05:40:46.787560"
+    },
+    {
+      "test": "GET /api/agents/code_assistant",
+      "success": true,
+      "details": "Agent: Asistente de C\u00f3digo",
+      "timestamp": "2025-07-10T05:40:46.834003"
+    },
+    {
+      "test": "GET /api/agents/debugging_expert",
+      "success": true,
+      "details": "Agent: Experto en Debugging",
+      "timestamp": "2025-07-10T05:40:46.842842"
+    },
+    {
+      "test": "POST /api/chat/send (code_assistant)",
+      "success": true,
+      "details": "Session: 03c8f3e8..., Response length: 225",
+      "timestamp": "2025-07-10T05:40:49.423095"
+    },
+    {
+      "test": "POST /api/chat/send (debugging_expert)",
+      "success": true,
+      "details": "Session: 7c93eaf2..., Response length: 3450",
+      "timestamp": "2025-07-10T05:40:55.699282"
+    },
+    {
+      "test": "POST /api/chat/send (code_reviewer)",
+      "success": true,
+      "details": "Session: ca77099f..., Response length: 232",
+      "timestamp": "2025-07-10T05:40:58.758489"
+    },
+    {
+      "test": "GET /api/chat/sessions",
+      "success": true,
+      "details": "Found 3 sessions",
+      "timestamp": "2025-07-10T05:40:59.790700"
+    },
+    {
+      "test": "GET /api/chat/sessions/03c8f3e8.../messages",
+      "success": true,
+      "details": "Found 2 messages",
+      "timestamp": "2025-07-10T05:40:59.799489"
+    },
+    {
+      "test": "GET /api/chat/sessions/7c93eaf2.../messages",
+      "success": true,
+      "details": "Found 2 messages",
+      "timestamp": "2025-07-10T05:40:59.813153"
+    },
+    {
+      "test": "POST /api/chat/sessions (code_assistant)",
+      "success": true,
+      "details": "Created session: d5dc1a66...",
+      "timestamp": "2025-07-10T05:40:59.863277"
+    },
+    {
+      "test": "POST /api/chat/send (code_assistant)",
+      "success": true,
+      "details": "Session: 04ca219e..., Response length: 2173",
+      "timestamp": "2025-07-10T05:41:07.991792"
+    },
+    {
+      "test": "POST /api/chat/send (debugging_expert)",
+      "success": true,
+      "details": "Session: d5709863..., Response length: 5119",
+      "timestamp": "2025-07-10T05:41:16.493649"
+    },
+    {
+      "test": "POST /api/chat/send (code_reviewer)",
+      "success": true,
+      "details": "Session: 14e034f4..., Response length: 2256",
+      "timestamp": "2025-07-10T05:41:26.563310"
+    },
+    {
+      "test": "Agent Personality Differentiation",
+      "success": true,
+      "details": "All 3 agents provided unique responses",
+      "timestamp": "2025-07-10T05:41:27.563491"
+    },
+    {
+      "test": "POST /api/chat/send (code_assistant)",
+      "success": true,
+      "details": "Session: 03c8f3e8..., Response length: 1542",
+      "timestamp": "2025-07-10T05:41:33.757255"
+    },
+    {
+      "test": "Session Persistence",
+      "success": true,
+      "details": "Follow-up message used same session",
+      "timestamp": "2025-07-10T05:41:33.757280"
+    },
+    {
+      "test": "DELETE /api/chat/sessions/03c8f3e8...",
+      "success": true,
+      "details": "Session deleted",
+      "timestamp": "2025-07-10T05:41:33.767290"
+    },
+    {
+      "test": "DELETE /api/chat/sessions/7c93eaf2...",
+      "success": true,
+      "details": "Session deleted",
+      "timestamp": "2025-07-10T05:41:33.816526"
+    },
+    {
+      "test": "DELETE /api/chat/sessions/ca77099f...",
+      "success": true,
+      "details": "Session deleted",
+      "timestamp": "2025-07-10T05:41:33.828553"
+    },
+    {
+      "test": "DELETE /api/chat/sessions/d5dc1a66...",
+      "success": true,
+      "details": "Session deleted",
+      "timestamp": "2025-07-10T05:41:34.111693"
+    },
+    {
+      "test": "DELETE /api/chat/sessions/04ca219e...",
+      "success": true,
+      "details": "Session deleted",
+      "timestamp": "2025-07-10T05:41:34.119618"
+    },
+    {
+      "test": "DELETE /api/chat/sessions/d5709863...",
+      "success": true,
+      "details": "Session deleted",
+      "timestamp": "2025-07-10T05:41:34.168600"
+    },
+    {
+      "test": "DELETE /api/chat/sessions/14e034f4...",
+      "success": true,
+      "details": "Session deleted",
+      "timestamp": "2025-07-10T05:41:34.175962"
+    }
+  ]
+}
