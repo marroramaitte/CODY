@@ -170,7 +170,7 @@ function App() {
   useEffect(() => {
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [terminalVisible, liveDevelopmentVisible]);
+  }, [terminalVisible, liveDevelopmentVisible, pricingVisible]);
 
   // Si está visible el sistema de desarrollo en vivo, mostrarlo en pantalla completa
   if (liveDevelopmentVisible) {
