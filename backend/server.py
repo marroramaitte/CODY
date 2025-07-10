@@ -1387,6 +1387,58 @@ async def websocket_endpoint(websocket: WebSocket):
         logging.error(f"WebSocket error: {e}")
         await project_manager.remove_websocket(websocket)
 
+# Endpoints para agentes conversacionales
+@api_router.get("/agents", response_model=List[AgentType])
+async def get_agents():
+    """Obtener todos los agentes disponibles"""
+    return await agent_manager.get_agent_types()
+
+@api_router.get("/agents/{agent_id}", response_model=AgentType)
+async def get_agent(agent_id: str):
+    """Obtener un agente específico"""
+    agent = await agent_manager.get_agent_by_id(agent_id)
+    if not agent:
+        raise HTTPException(status_code=404, detail="Agent not found")
+    return agent
+
+@api_router.post("/chat/send", response_model=ChatResponse)
+async def send_chat_message(chat_request: ChatRequest):
+    """Enviar mensaje a un agente"""
+    try:
+        return await agent_manager.send_message(chat_request)
+    except Exception as e:
+        logging.error(f"Error in chat: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@api_router.get("/chat/sessions", response_model=List[ChatSession])
+async def get_user_sessions(user_id: str = "default"):
+    """Obtener sesiones de chat del usuario"""
+    return await agent_manager.get_user_sessions(user_id)
+
+@api_router.get("/chat/sessions/{session_id}", response_model=ChatSession)
+async def get_chat_session(session_id: str):
+    """Obtener una sesión específica"""
+    session = await agent_manager.get_chat_session(session_id)
+    if not session:
+        raise HTTPException(status_code=404, detail="Session not found")
+    return session
+
+@api_router.get("/chat/sessions/{session_id}/messages", response_model=List[ChatMessage])
+async def get_session_messages(session_id: str):
+    """Obtener mensajes de una sesión"""
+    return await agent_manager.get_session_messages(session_id)
+
+@api_router.delete("/chat/sessions/{session_id}")
+async def delete_chat_session(session_id: str):
+    """Eliminar sesión de chat"""
+    await agent_manager.delete_session(session_id)
+    return {"message": "Session deleted successfully"}
+
+@api_router.post("/chat/sessions", response_model=ChatSession)
+async def create_chat_session(agent_id: str, user_id: str = "default"):
+    """Crear nueva sesión de chat"""
+    return await agent_manager.create_chat_session(agent_id, user_id)
+
 # Include the router in the main app
 app.include_router(api_router)
 
