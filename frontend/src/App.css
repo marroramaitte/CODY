@@ -161,6 +161,107 @@
   background: #6b7280;
 }
 
+/* Pricing Panel Styles */
+.pricing-card {
+  transition: all 0.3s ease;
+}
+
+.pricing-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.pricing-card.popular {
+  position: relative;
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 0 1px #3b82f6, 0 4px 15px rgba(59, 130, 246, 0.2);
+}
+
+.pricing-card.popular::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+  border-radius: 6px 6px 0 0;
+}
+
+.pricing-feature-list {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.pricing-feature-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.pricing-feature-list::-webkit-scrollbar-track {
+  background: #374151;
+}
+
+.pricing-feature-list::-webkit-scrollbar-thumb {
+  background: #6b7280;
+  border-radius: 2px;
+}
+
+.pricing-badge {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.pricing-cta-button {
+  transition: all 0.2s ease;
+}
+
+.pricing-cta-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.pricing-toggle {
+  background: linear-gradient(135deg, #374151 0%, #4b5563 100%);
+  border: 1px solid #6b7280;
+}
+
+.pricing-faq-item {
+  border-bottom: 1px solid #374151;
+  padding: 1rem 0;
+}
+
+.pricing-faq-item:last-child {
+  border-bottom: none;
+}
+
+.trust-indicator {
+  transition: transform 0.2s ease;
+}
+
+.trust-indicator:hover {
+  transform: scale(1.05);
+}
+
+/* Responsive pricing adjustments */
+@media (max-width: 768px) {
+  .pricing-card {
+    margin-bottom: 1rem;
+  }
+  
+  .pricing-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
 /* Live Development System Styles */
 .fullscreen-overlay {
   position: fixed;
