@@ -1299,6 +1299,9 @@ if __name__ == "__main__":
 project_manager = ProjectManager(db)
 project_simulator = ProjectSimulator(project_manager)
 
+# Inicializar el manager de agentes
+agent_manager = AgentManager(db, OPENAI_API_KEY, GEMINI_API_KEY)
+
 # Create the main app without a prefix
 app = FastAPI()
 
