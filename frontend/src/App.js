@@ -198,6 +198,7 @@ function App() {
           onChatToggle={() => setChatBotVisible(!chatBotVisible)}
           onAIGeneratorToggle={() => setAiGeneratorVisible(!aiGeneratorVisible)}
           onLiveDevelopmentToggle={() => setLiveDevelopmentVisible(!liveDevelopmentVisible)}
+          onPricingToggle={() => setPricingVisible(!pricingVisible)}
         />
         
         <SideBar 
