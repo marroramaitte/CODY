@@ -8,7 +8,7 @@ export const ActivityBar = ({ activeView, onViewChange, onChatToggle, onAIGenera
     { id: 'source-control', icon: '🔀', title: 'Source Control' },
     { id: 'debug', icon: '🐛', title: 'Debug' },
     { id: 'extensions', icon: '📦', title: 'Extensions' },
-    { id: 'ai-chat', icon: '🤖', title: 'AI Chat' },
+    { id: 'ai-chat', icon: '🤖', title: 'AI Chat con Agentes' },
     { id: 'ai-generator', icon: '✨', title: 'AI Code Generator' },
     { id: 'live-development', icon: '🚀', title: 'Live Development' }
   ];
