@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 
 // Activity Bar Component
-export const ActivityBar = ({ activeView, onViewChange, onChatToggle, onAIGeneratorToggle, onLiveDevelopmentToggle }) => {
+export const ActivityBar = ({ activeView, onViewChange, onChatToggle, onAIGeneratorToggle, onLiveDevelopmentToggle, onPricingToggle }) => {
   const activities = [
     { id: 'explorer', icon: '📁', title: 'Explorer' },
     { id: 'search', icon: '🔍', title: 'Search' },
@@ -10,6 +10,7 @@ export const ActivityBar = ({ activeView, onViewChange, onChatToggle, onAIGenera
     { id: 'extensions', icon: '📦', title: 'Extensions' },
     { id: 'ai-chat', icon: '🤖', title: 'AI Chat con Agentes' },
     { id: 'ai-generator', icon: '✨', title: 'AI Code Generator' },
+    { id: 'pricing', icon: '💎', title: 'Planes y Precios' },
     { id: 'live-development', icon: '🚀', title: 'Live Development' }
   ];
 
@@ -27,6 +28,8 @@ export const ActivityBar = ({ activeView, onViewChange, onChatToggle, onAIGenera
                 onAIGeneratorToggle();
               } else if (activity.id === 'live-development') {
                 onLiveDevelopmentToggle();
+              } else if (activity.id === 'pricing') {
+                onPricingToggle();
               } else {
                 onViewChange(activity.id);
               }
