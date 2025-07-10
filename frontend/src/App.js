@@ -234,7 +234,7 @@ function App() {
       />
       
       {chatBotVisible && (
-        <ChatBot 
+        <EnhancedChatBot 
           onClose={() => setChatBotVisible(false)}
           currentCode={currentCode}
         />
