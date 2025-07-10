@@ -25,6 +25,7 @@ function App() {
   const [errorPanelVisible, setErrorPanelVisible] = useState(false);
   const [aiGeneratorVisible, setAiGeneratorVisible] = useState(false);
   const [liveDevelopmentVisible, setLiveDevelopmentVisible] = useState(false);
+  const [pricingVisible, setPricingVisible] = useState(false);
   const [sidebarWidth, setSidebarWidth] = useState(300);
   const [terminalHeight, setTerminalHeight] = useState(200);
   const [currentCode, setCurrentCode] = useState('');
