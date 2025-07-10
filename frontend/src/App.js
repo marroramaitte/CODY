@@ -12,6 +12,7 @@ import {
 } from './components';
 import LiveDevelopmentSystem from './LiveDevelopment';
 import EnhancedChatBot from './EnhancedChatBot';
+import PricingPanel from './PricingPanel';
 
 function App() {
   const [activeView, setActiveView] = useState('explorer');
