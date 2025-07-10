@@ -28,6 +28,48 @@ mongo_url = os.environ['MONGO_URL']
 client = AsyncIOMotorClient(mongo_url)
 db = client[os.environ['DB_NAME']]
 
+# AI API Keys
+OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
+GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY')
+
+# Modelos para el sistema de agentes conversacionales
+class AgentType(BaseModel):
+    id: str
+    name: str
+    description: str
+    system_message: str
+    icon: str
+    personality: str
+    provider: str  # "openai" or "gemini"
+    model: str
+
+class ChatMessage(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    agent_id: str
+    session_id: str
+    role: str  # "user" or "assistant"
+    content: str
+    timestamp: datetime = Field(default_factory=datetime.utcnow)
+
+class ChatSession(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    agent_id: str
+    user_id: str = "default"
+    messages: List[ChatMessage] = []
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+    updated_at: datetime = Field(default_factory=datetime.utcnow)
+
+class ChatRequest(BaseModel):
+    agent_id: str
+    session_id: Optional[str] = None
+    message: str
+
+class ChatResponse(BaseModel):
+    session_id: str
+    message: str
+    agent_id: str
+    timestamp: datetime
+
 # Modelos para el sistema de desarrollo en vivo
 class ProjectState(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
