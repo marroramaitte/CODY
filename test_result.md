@@ -101,3 +101,88 @@
 #====================================================================================================
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
+
+user_problem_statement: |
+  Quiero una seccion donde podamos seleccionar entre diferentes agentes conversacionales como pasa en Cursor
+  
+  Translation: I want a section where we can select between different conversational agents like what happens in Cursor
+
+frontend:
+  - task: "Create Agent Selection Component"
+    implemented: false
+    working: false
+    file: "frontend/src/components/AgentSelector.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: false
+        agent: "main"
+        comment: "Task identified - need to create component for selecting different conversational agents"
+
+  - task: "Update Activity Bar for Agent Selection"
+    implemented: false
+    working: false
+    file: "frontend/src/components.js"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: false
+    status_history:
+      - working: false
+        agent: "main"
+        comment: "Need to add agent selection to activity bar"
+
+  - task: "Enhance ChatBot with Agent Types"
+    implemented: false
+    working: false
+    file: "frontend/src/components.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: false
+        agent: "main"
+        comment: "Need to modify existing ChatBot component to work with different agent types"
+
+  - task: "Create Agent Configuration System"
+    implemented: false
+    working: false
+    file: "frontend/src/utils/agentConfig.js"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: false
+    status_history:
+      - working: false
+        agent: "main"
+        comment: "Need to create configuration system for different agent types"
+
+backend:
+  - task: "Add Agent Management API"
+    implemented: false
+    working: false
+    file: "backend/server.py"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: false
+    status_history:
+      - working: false
+        agent: "main"
+        comment: "Need to add API endpoints for managing different agent types"
+
+metadata:
+  created_by: "main_agent"
+  version: "1.0"
+  test_sequence: 0
+  run_ui: false
+
+test_plan:
+  current_focus:
+    - "Create Agent Selection Component"
+    - "Enhance ChatBot with Agent Types"
+  stuck_tasks: []
+  test_all: false
+  test_priority: "high_first"
+
+agent_communication:
+  - agent: "main"
+    message: "Analyzed current VSCode-like application. User wants to add agent selection feature similar to Cursor. Current app has basic ChatBot, need to enhance with multiple agent types."
