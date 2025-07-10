@@ -159,6 +159,12 @@ function App() {
       e.preventDefault();
       setLiveDevelopmentVisible(!liveDevelopmentVisible);
     }
+
+    // Toggle Pricing Panel
+    if (e.ctrlKey && e.shiftKey && e.key === 'P') {
+      e.preventDefault();
+      setPricingVisible(!pricingVisible);
+    }
   };
 
   useEffect(() => {
