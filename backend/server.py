@@ -70,6 +70,190 @@ class ChatResponse(BaseModel):
     agent_id: str
     timestamp: datetime
 
+# Sistema de gestión de agentes conversacionales
+class AgentManager:
+    def __init__(self, db, openai_key: str, gemini_key: str):
+        self.db = db
+        self.openai_key = openai_key
+        self.gemini_key = gemini_key
+        self.agent_types = self._initialize_agent_types()
+        self.active_chats: Dict[str, LlmChat] = {}
+        
+    def _initialize_agent_types(self) -> List[AgentType]:
+        """Inicializar tipos de agentes predefinidos"""
+        return [
+            AgentType(
+                id="code_assistant",
+                name="Asistente de Código",
+                description="Especialista en desarrollo de código, mejores prácticas y arquitectura de software",
+                system_message="Eres un experto asistente de código con amplia experiencia en desarrollo de software. Ayudas a los desarrolladores a escribir código limpio, eficiente y mantenible. Proporcionas explicaciones claras, mejores prácticas y soluciones elegantes. Siempre incluyes ejemplos de código cuando es relevante.",
+                icon="👨‍💻",
+                personality="Profesional y didáctico, con enfoque en calidad y buenas prácticas",
+                provider="openai",
+                model="gpt-4o"
+            ),
+            AgentType(
+                id="debugging_expert",
+                name="Experto en Debugging",
+                description="Especialista en identificar, analizar y resolver errores en el código",
+                system_message="Eres un experto en debugging y resolución de problemas de código. Tu especialidad es identificar la raíz de los problemas, analizar stack traces, y proporcionar soluciones paso a paso. Eres meticuloso, sistemático y siempre proporcionas estrategias claras para resolver bugs.",
+                icon="🐛",
+                personality="Analítico y meticuloso, con enfoque en resolución sistemática de problemas",
+                provider="gemini",
+                model="gemini-2.0-flash"
+            ),
+            AgentType(
+                id="code_reviewer",
+                name="Revisor de Código",
+                description="Experto en revisión de código, calidad y seguridad",
+                system_message="Eres un revisor de código experto con ojo crítico para la calidad, seguridad y mantenibilidad. Analizas código en profundidad, identificas problemas potenciales, sugieres mejoras y garantizas que se sigan las mejores prácticas. Tus revisiones son constructivas y educativas.",
+                icon="🔍",
+                personality="Crítico constructivo, detallista y enfocado en la calidad",
+                provider="openai",
+                model="gpt-4o"
+            ),
+            AgentType(
+                id="doc_generator",
+                name="Generador de Documentación",
+                description="Especialista en crear documentación técnica clara y completa",
+                system_message="Eres un especialista en documentación técnica. Créas documentación clara, comprensible y completa para código, APIs y proyectos de software. Tu documentación es siempre bien estructurada, incluye ejemplos prácticos y está dirigida tanto a desarrolladores como a usuarios finales.",
+                icon="📖",
+                personality="Claro y pedagógico, con enfoque en la comprensión del usuario",
+                provider="gemini",
+                model="gemini-2.0-flash"
+            ),
+            AgentType(
+                id="optimization_expert",
+                name="Experto en Optimización",
+                description="Especialista en optimización de rendimiento y eficiencia",
+                system_message="Eres un experto en optimización de rendimiento y eficiencia de código. Analizas código para identificar cuellos de botella, propones mejoras de rendimiento y sugiere optimizaciones que mejoren la eficiencia sin comprometer la legibilidad. Tienes conocimiento profundo de algoritmos y estructuras de datos.",
+                icon="⚡",
+                personality="Técnico y orientado a resultados, con enfoque en rendimiento",
+                provider="openai",
+                model="gpt-4o"
+            )
+        ]
+    
+    async def get_agent_types(self) -> List[AgentType]:
+        """Obtener todos los tipos de agentes disponibles"""
+        return self.agent_types
+    
+    async def get_agent_by_id(self, agent_id: str) -> Optional[AgentType]:
+        """Obtener un agente por ID"""
+        return next((agent for agent in self.agent_types if agent.id == agent_id), None)
+    
+    async def create_chat_session(self, agent_id: str, user_id: str = "default") -> ChatSession:
+        """Crear una nueva sesión de chat"""
+        agent = await self.get_agent_by_id(agent_id)
+        if not agent:
+            raise HTTPException(status_code=404, detail="Agent not found")
+        
+        session = ChatSession(
+            agent_id=agent_id,
+            user_id=user_id
+        )
+        
+        # Guardar en base de datos
+        await self.db.chat_sessions.insert_one(session.dict())
+        return session
+    
+    async def get_chat_session(self, session_id: str) -> Optional[ChatSession]:
+        """Obtener una sesión de chat"""
+        session_data = await self.db.chat_sessions.find_one({"id": session_id})
+        if session_data:
+            return ChatSession(**session_data)
+        return None
+    
+    async def get_user_sessions(self, user_id: str = "default") -> List[ChatSession]:
+        """Obtener todas las sesiones de un usuario"""
+        sessions = await self.db.chat_sessions.find({"user_id": user_id}).to_list(100)
+        return [ChatSession(**session) for session in sessions]
+    
+    async def send_message(self, chat_request: ChatRequest) -> ChatResponse:
+        """Enviar mensaje y obtener respuesta del agente"""
+        # Obtener o crear sesión
+        session = None
+        if chat_request.session_id:
+            session = await self.get_chat_session(chat_request.session_id)
+        
+        if not session:
+            session = await self.create_chat_session(chat_request.agent_id)
+        
+        # Obtener agente
+        agent = await self.get_agent_by_id(chat_request.agent_id)
+        if not agent:
+            raise HTTPException(status_code=404, detail="Agent not found")
+        
+        # Crear mensaje del usuario
+        user_message = ChatMessage(
+            agent_id=chat_request.agent_id,
+            session_id=session.id,
+            role="user",
+            content=chat_request.message
+        )
+        
+        # Crear o obtener instancia de LlmChat
+        chat_key = f"{session.id}_{agent.id}"
+        if chat_key not in self.active_chats:
+            api_key = self.openai_key if agent.provider == "openai" else self.gemini_key
+            self.active_chats[chat_key] = LlmChat(
+                api_key=api_key,
+                session_id=session.id,
+                system_message=agent.system_message
+            ).with_model(agent.provider, agent.model)
+        
+        # Enviar mensaje a la IA
+        try:
+            user_msg = UserMessage(text=chat_request.message)
+            ai_response = await self.active_chats[chat_key].send_message(user_msg)
+            
+            # Crear mensaje de respuesta
+            assistant_message = ChatMessage(
+                agent_id=chat_request.agent_id,
+                session_id=session.id,
+                role="assistant",
+                content=ai_response
+            )
+            
+            # Guardar ambos mensajes
+            await self.db.chat_messages.insert_one(user_message.dict())
+            await self.db.chat_messages.insert_one(assistant_message.dict())
+            
+            # Actualizar sesión
+            session.updated_at = datetime.utcnow()
+            await self.db.chat_sessions.update_one(
+                {"id": session.id},
+                {"$set": {"updated_at": session.updated_at}}
+            )
+            
+            return ChatResponse(
+                session_id=session.id,
+                message=ai_response,
+                agent_id=chat_request.agent_id,
+                timestamp=assistant_message.timestamp
+            )
+            
+        except Exception as e:
+            logging.error(f"Error sending message to AI: {e}")
+            raise HTTPException(status_code=500, detail=f"Error communicating with AI: {str(e)}")
+    
+    async def get_session_messages(self, session_id: str) -> List[ChatMessage]:
+        """Obtener mensajes de una sesión"""
+        messages = await self.db.chat_messages.find(
+            {"session_id": session_id}
+        ).sort("timestamp", 1).to_list(1000)
+        return [ChatMessage(**msg) for msg in messages]
+    
+    async def delete_session(self, session_id: str):
+        """Eliminar sesión y sus mensajes"""
+        await self.db.chat_sessions.delete_one({"id": session_id})
+        await self.db.chat_messages.delete_many({"session_id": session_id})
+        
+        # Limpiar chat activo
+        for key in list(self.active_chats.keys()):
+            if key.startswith(session_id):
+                del self.active_chats[key]
+
 # Modelos para el sistema de desarrollo en vivo
 class ProjectState(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
