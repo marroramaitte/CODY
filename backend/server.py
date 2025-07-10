@@ -17,6 +17,9 @@ import time
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
+# AI Integration
+from emergentintegrations.llm.chat import LlmChat, UserMessage
+
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
