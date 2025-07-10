@@ -6,12 +6,12 @@ import {
   Editor, 
   Terminal, 
   StatusBar, 
-  ChatBot,
   CodeCompletionModal,
   ErrorPanel,
   AICodeGenerator
 } from './components';
 import LiveDevelopmentSystem from './LiveDevelopment';
+import EnhancedChatBot from './EnhancedChatBot';
 
 function App() {
   const [activeView, setActiveView] = useState('explorer');
